@@ -10,15 +10,28 @@
   <body>
 
     <div class="todo" ng-controller="TodoController as todo">
+      <form action="" class="todo__form" ng-submit="todo.addTodo();">
+        <input type="text" ng-model="todo.newTodo" placeholder="Add new todo!">
+      </form>
+
       <ul class="todo__list">
         <!--model binding control the properties to the html-->
         <!--first item checked-->
         <li ng-repeat="item in todo.list">
           <input type="checkbox" id="todo-{{ $index }}" ng-model="item.completed">
           <label class="toggle" for="todo-{{ $index }}"></label>
-          <p>
+          <p ng-dblclick="showEditField = true;" ng-hide="showEditField">
             {{item.title}}
           </p>
+          <div ng-show="showEditField">
+            <input
+              type="text"
+              ng-model="item.title"
+              ng-blur="showEditField = false;">
+          </div>
+          <a href="" ng-click="todo.removeTodo(item, $index);">
+            &#215;
+          </a>
         </li>
       </ul>
     </div>
